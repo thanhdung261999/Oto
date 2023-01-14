@@ -1,0 +1,118 @@
+.item-product {
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 16px;
+  .product {
+    position: relative;
+    border-radius: 10px;
+    box-shadow: rgba(210, 227, 240, 0.3) 0px 1px 2px 0px,
+      rgb(60 64 67 / 15%) 0px 1px 3px 1px;
+    .brand {
+      cursor: default;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      height: 30px;
+      width: 60px;
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding: 0 6px;
+      color: #fff;
+      text-align: center;
+      align-items: center;
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background: linear-gradient(
+        to right,
+        rgb(74 222 220 / 80%),
+        rgb(5 178 255 / 80%)
+      );
+    }
+    .prd-image {
+      img {
+        cursor: pointer;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        width: 100%;
+      }
+    }
+    .product-content {
+      padding: 12px;
+      background-color: #f5f5f5;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+
+      .prd-title {
+        cursor: pointer;
+        margin: 12px 0;
+        line-height: 1.8rem;
+        line-height: 2.5rem;
+        height: 50px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+      }
+      .prd-price {
+        font-size: 1.6rem;
+        font-weight: 600;
+        display: flex;
+        color: #222;
+        align-items: center;
+        margin-bottom: 5px;
+        .icon-dola {
+          color: #67d254;
+          margin-right: 5px;
+          font-size: large;
+        }
+      }
+
+      .prd-description {
+        margin-bottom: 20px;
+        display: flex;
+        padding-left: 0;
+        align-items: center;
+        justify-content: space-between;
+        li {
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          font-size: 1.4rem;
+          width: 50%;
+          list-style: none;
+          .icon {
+            margin-right: 6px;
+            font-size: large;
+            color: #454ce6;
+          }
+        }
+      }
+      .btn-contact {
+        height: 30px;
+        width: 100%;
+        border-radius: 15px;
+        background: linear-gradient(
+          to right,
+          rgb(104, 40, 250),
+          rgb(54 208 221)
+        );
+        margin-bottom: 5px;
+        border: none;
+        font-size: 1.6rem;
+        color: #fff;
+        font-weight: 600;
+        &:hover {
+          background: linear-gradient(
+            to right,
+            rgb(54 208 221),
+            rgb(104, 40, 250)
+          );
+        }
+      }
+    }
+  }
+}

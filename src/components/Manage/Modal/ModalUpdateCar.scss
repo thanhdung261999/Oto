@@ -1,0 +1,57 @@
+.group-content {
+  display: flex;
+  gap: 20px;
+}
+.btn-submit {
+  font-size: 1.5rem;
+  min-width: 60px;
+  margin-bottom: 100px;
+}
+.form-group-post {
+  margin-bottom: 16px;
+  .label {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+  }
+  .input {
+    height: 40px;
+    font-size: 1.4rem;
+  }
+}
+.textarea {
+  height: 105px;
+  line-height: 2.5rem;
+  font-size: 1.4rem;
+}
+.des-valid {
+  color: red;
+  font-size: 1.2rem;
+  height: 1.2rem;
+  margin-top: 4px;
+  display: block;
+}
+.img-preview {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  width: 50%;
+  border: 1px dashed #ccc;
+  margin-bottom: 20px;
+  .img-car {
+    padding: 20px 5px;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+  span {
+    display: flex;
+    align-items: center;
+  }
+}
+.file {
+  background-color: transparent;
+  color: transparent;
+  background-color: initial;
+}

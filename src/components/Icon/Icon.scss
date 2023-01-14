@@ -1,0 +1,52 @@
+.btn-icon {
+  width: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //   background-color: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 4px 0 rgb(0 0 0 / 20%);
+  font-size: 2.5rem;
+  opacity: 0.8;
+  z-index: 10;
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-prev {
+  height: 100%;
+  width: 100%;
+  border-radius: 0 100px 100px 0;
+  background-color: #fff;
+  color: blue;
+}
+
+.icon-next {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px 0 0 100px;
+  background-color: #fff;
+}
+.carousel-control-next,
+.carousel-control-prev {
+  width: 3% !important;
+  right: -2px;
+}
+.carousel-control-prev {
+  transition: all 0.2s linear;
+  left: -2px;
+}
+.label-upload {
+  border-radius: 5px;
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 5px;
+  background-color: #eeeeee;
+  width: fit-content;
+  cursor: pointer;
+  &:hover {
+    background-color: #dcdcdc;
+  }
+}

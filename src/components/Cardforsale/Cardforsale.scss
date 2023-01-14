@@ -1,0 +1,91 @@
+.card-for-sale-container {
+  padding: 30px 10px 20px 15px;
+  margin-top: 30px;
+  .content {
+    padding-left: 5px;
+    display: flex;
+    .left-content {
+      font-size: 1.5rem;
+      padding: 20px;
+      max-height: 430px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: #e0edfb;
+      border-radius: 8px;
+      .title {
+        display: flex;
+        margin-bottom: 10px;
+        div {
+          font-size: 2.4rem;
+          font-weight: 600;
+          display: flex;
+          margin: auto;
+          color: #131212;
+        }
+      }
+      .checkbox {
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        div {
+          display: flex;
+          label {
+            margin-right: 5px;
+          }
+          input {
+            width: 18px;
+            position: relative;
+            top: 2px;
+          }
+        }
+      }
+      .input {
+        height: 34px;
+        font-size: 1.4rem;
+      }
+      .btn-register {
+        display: flex;
+        margin: auto;
+        button {
+          font-size: 1.5rem;
+          color: #fff;
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+    .right-content {
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 3rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+      .group-selected {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 30px;
+        border-bottom: 1px dashed #999;
+        font-size: 1.6rem;
+      }
+      .total-car {
+        margin-top: 30px;
+        font-size: 1.6rem;
+        color: #222;
+        font-weight: 400;
+        margin-bottom: 20px;
+        span {
+          color: #000;
+          font-weight: 500;
+        }
+      }
+      .list-car {
+        position: relative;
+      }
+    }
+  }
+}

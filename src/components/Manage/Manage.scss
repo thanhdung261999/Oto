@@ -1,0 +1,61 @@
+.managecar-container {
+  display: flex;
+  .managecar-content {
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    .react-tabs__tab {
+      width: 50%;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .postcar-container {
+      padding: 12px;
+      .group-content {
+        display: flex;
+        gap: 20px;
+      }
+      .btn-submit {
+        font-size: 1.5rem;
+        min-width: 60px;
+        margin-bottom: 100px;
+      }
+      .form-group-post {
+        margin-bottom: 16px;
+        .label {
+          font-weight: 600;
+          color: #333;
+          font-size: 1.5rem;
+          margin-bottom: 3px;
+        }
+        .input {
+          height: 40px;
+          font-size: 1.4rem;
+        }
+      }
+      .textarea {
+        height: 105px;
+        line-height: 2.5rem;
+        font-size: 1.4rem;
+      }
+      .des-valid {
+        color: red;
+        font-size: 1.2rem;
+        height: 1.2rem;
+        margin-top: 4px;
+        display: block;
+      }
+    }
+    .edit-container {
+      padding: 20px;
+      .title-edit {
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+    }
+    .group-upload {
+      margin-bottom: 20px;
+    }
+  }
+}

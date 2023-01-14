@@ -1,0 +1,58 @@
+@import-normalize;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import "~react-pro-sidebar/dist/scss/styles.scss";
+:root {
+  --primary-color: #008848;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  font-family: " Roboto ", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  overflow: hidden;
+  font-size: 1.4rem;
+}
+
+.app-container {
+  background-color: #f9f9f9;
+  height: 100vh;
+  .app-content {
+    margin-top: 46px;
+    height: calc(100vh - var(--header-height));
+    .img-preview {
+      padding: 20px;
+      border: 1px dashed #ccc;
+      display: flex;
+      height: 300px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      color: #ccc;
+      width: 50%;
+
+      & .error {
+        border: 1px dashed red;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+}
+.app-footer {
+  width: 100%;
+  margin-top: 50px;
+}
+.fs {
+  font-size: 1.3rem;
+}
