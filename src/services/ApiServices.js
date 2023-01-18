@@ -5,13 +5,26 @@ export const getEightCar = () => {
 export const getAllCar = () => {
   return axios.get("/cars");
 };
+export const getDetailsCar = (id) => {
+  return axios.get(`/cars/${id}`);
+};
+export const getAllCarWithBrandModelSortByPrice = (
+  brand,
+  arrange,
+  model = ""
+) => {
+  return axios.get(
+    `/cars?car_brand=${brand}${
+      model ? "&car_model=" + model : ""
+    }&_sort=price&_order=${arrange}`
+  );
+};
 export const getAllCarWithBrandModel = (brand, model) => {
   return axios.get(`/cars?car_brand=${brand}&car_model=${model}`);
 };
 export const getAllCarWithBrand = (brand) => {
   return axios.get(`/cars?car_brand=${brand}`);
 };
-
 export const getAllBrandCar = () => {
   return axios.get("/brandCars");
 };
@@ -35,6 +48,7 @@ export const postCar = (data) => {
     timePost: data?.timePost,
     national: data?.national,
     timeUpdate: "",
+    view: data?.view,
   });
 };
 export const deleteCar = (id) => {
@@ -56,7 +70,8 @@ export const updateCar = (
   imageFiles,
   timePost,
   national,
-  timeUpdate
+  timeUpdate,
+  view
 ) => {
   return axios.put(`/cars/${id}`, {
     title,
@@ -74,5 +89,37 @@ export const updateCar = (
     timePost,
     national,
     timeUpdate,
+    view,
+  });
+};
+export const patchViewCar = (id, view) => {
+  return axios.patch(`/cars/${id}`, { view });
+};
+export const postUser = (email, password, username) => {
+  const role = "User";
+  return axios.post("/users", {
+    email,
+    password,
+    username,
+    role,
+  });
+};
+
+export const getUser = (email, password) => {
+  return axios.get(`/users/?email=${email}&password=${password}`);
+};
+
+export const getAllUser = () => {
+  return axios.get(`/users`);
+};
+
+export const deleteUser = (id) => {
+  return axios.delete(`/users/${id}`);
+};
+export const updateUser = (id, email, username, role) => {
+  return axios.patch(`/users/${id}`, {
+    email,
+    username,
+    role,
   });
 };

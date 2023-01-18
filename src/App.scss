@@ -12,21 +12,23 @@
 }
 
 html {
+  scroll-behavior: smooth;
   font-size: 62.5%;
   line-height: 1.6rem;
   font-family: " Roboto ", sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 body {
-  overflow: hidden;
   font-size: 1.4rem;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .app-container {
   background-color: #f9f9f9;
-  height: 100vh;
+  height: 100%;
   .app-content {
-    margin-top: 46px;
+    margin-top: var(--header-height);
     height: calc(100vh - var(--header-height));
     .img-preview {
       padding: 20px;
@@ -51,8 +53,24 @@ body {
 }
 .app-footer {
   width: 100%;
-  margin-top: 50px;
 }
 .fs {
   font-size: 1.3rem;
+}
+.up {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  font-size: 3rem;
+  .icon {
+    color: #dc3545;
+    background-color: yellow;
+    cursor: pointer;
+  }
+}
+.Toastify__toast-container {
+  z-index: 1000000 !important;
+}
+.Toastify__toast-container--top-right {
+  top: 3em !important;
 }

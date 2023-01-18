@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllCar } from "../../services/ApiServices";
 import ModalDeleteCar from "./Modal/ModalDeleteCar";
 import ModalUpdateCar from "./Modal/ModalUpdateCar";
@@ -8,6 +9,7 @@ const EditCar = (props) => {
   const [dataDelete, setDataDelete] = useState({});
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     fetAllCar();
   }, []);
@@ -58,6 +60,9 @@ const EditCar = (props) => {
                     <button
                       className="btn btn-secondary fs"
                       style={{ margin: "0 5px 0 5px " }}
+                      onClick={() => {
+                        navigate(`/card-for-sale/:${car.id}`);
+                      }}
                     >
                       View
                     </button>

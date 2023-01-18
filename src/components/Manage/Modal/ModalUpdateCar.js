@@ -104,6 +104,7 @@ const ModalUpdateCar = (props) => {
     let imageFiles = [];
     imageFiles.push(preViewImage1, preViewImage2, preViewImage3);
     const dataClone = _.cloneDeep(data);
+    dataClone.price = _.toNumber(dataClone.price);
     delete dataClone.file1;
     delete dataClone.file2;
     delete dataClone.file3;
@@ -128,7 +129,8 @@ const ModalUpdateCar = (props) => {
       dataClone?.imageFiles,
       dataUpdate?.timePost,
       dataClone?.national,
-      dataClone?.timeUpdate
+      dataClone?.timeUpdate,
+      dataClone?.view
     );
     if (res && res.status === 200) {
       toast.success("Update success car ");

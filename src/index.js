@@ -6,9 +6,11 @@ import "react-tabs/style/react-tabs.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout";
 import "./index.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "nprogress/nprogress.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>

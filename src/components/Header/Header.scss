@@ -42,10 +42,15 @@
       opacity: 0.8;
     }
   }
+
   // --cta-hover-color: #6828fa;
 
   .header-content {
     display: flex !important;
     justify-content: space-between !important;
   }
+}
+
+.st {
+  font-size: 1.5rem !important;
 }

@@ -1,0 +1,60 @@
+.left-content {
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 20px;
+  max-height: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #e0edfb;
+  border-radius: 8px;
+  .select {
+    height: 38px;
+    border-radius: 3px;
+    outline: none;
+    padding: 2px 8px;
+    border: 1px solid #ccc;
+  }
+  .title {
+    display: flex;
+    margin-bottom: 10px;
+    div {
+      font-size: 2.4rem;
+      font-weight: 600;
+      display: flex;
+      margin: auto;
+      color: #131212;
+    }
+  }
+  .checkbox {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    div {
+      display: flex;
+      label {
+        margin-right: 5px;
+      }
+      input {
+        width: 18px;
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+  .input {
+    height: 34px;
+    font-size: 1.4rem;
+  }
+  .btn-register {
+    display: flex;
+    margin: auto;
+    button {
+      font-size: 1.5rem;
+      color: #fff;
+      position: relative;
+      top: -1px;
+    }
+  }
+}

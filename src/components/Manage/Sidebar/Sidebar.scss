@@ -1,11 +1,14 @@
 .sidebar-container {
   .pro-sidebar-layout {
     height: 100vh !important;
+    z-index: 1 !important;
   }
 }
-
+.pro-sidebar {
+  z-index: 1;
+}
 .pro-sidebar > .pro-sidebar-inner {
-  background: #f7fff8 !important;
+  background-color: #fff !important;
   border-right: 1px solid #b6b6b6;
   color: #333;
   font-weight: 600;

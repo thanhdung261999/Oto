@@ -1,0 +1,23 @@
+.form-update {
+  label {
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+  }
+  input {
+    height: 34px;
+    font-size: 1.5rem;
+  }
+  select {
+    height: 34px;
+    font-size: 1.5rem;
+  }
+  .des {
+    margin-bottom: 8px;
+    display: block;
+    color: red;
+    height: 14px;
+  }
+}
+.btn-submit {
+  margin-top: 20px;
+}

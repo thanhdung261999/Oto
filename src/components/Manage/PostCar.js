@@ -66,6 +66,8 @@ const PostCar = (props) => {
     let imageFiles = [];
     imageFiles.push(preViewImage1, preViewImage2, preViewImage3);
     const dataClone = _.cloneDeep(data);
+    dataClone.price = _.toNumber(dataClone.price);
+    dataClone.view = 0;
     delete dataClone.file1;
     delete dataClone.file2;
     delete dataClone.file3;
