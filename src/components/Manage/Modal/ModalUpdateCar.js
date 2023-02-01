@@ -1,17 +1,17 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import _ from "lodash";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { UploadImage } from "../../Icon/Icon";
-import "./ModalUpdateCar.scss";
-import { toast } from "react-toastify";
-import { getAllModelcar, updateCar } from "../../../services/ApiServices";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import _ from 'lodash';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { UploadImage } from '../../Icon/Icon';
+import './ModalUpdateCar.scss';
+import { toast } from 'react-toastify';
+import { getAllModelcar, updateCar } from '../../../services/ApiServices';
 const ModalUpdateCar = (props) => {
   const { show, setShow, dataUpdate, setDataUpdate, fetAllCar } = props;
-  const [preViewImage1, setPreViewImage1] = useState("");
-  const [preViewImage2, setPreViewImage2] = useState("");
-  const [preViewImage3, setPreViewImage3] = useState("");
+  const [preViewImage1, setPreViewImage1] = useState('');
+  const [preViewImage2, setPreViewImage2] = useState('');
+  const [preViewImage3, setPreViewImage3] = useState('');
   const [listModelCar, setListModelCar] = useState({});
   useEffect(() => {
     if (dataUpdate.imageFiles && dataUpdate.imageFiles[0]) {
@@ -24,7 +24,7 @@ const ModalUpdateCar = (props) => {
       setPreViewImage3(dataUpdate.imageFiles[2]);
     }
     handleSetModelCar(dataUpdate.car_brand);
-    reset({
+    let defaultValuesForm = {
       title: dataUpdate?.title,
       car_brand: dataUpdate?.car_brand,
       car_model: dataUpdate?.car_model,
@@ -37,19 +37,11 @@ const ModalUpdateCar = (props) => {
       andress: dataUpdate?.andress,
       description: dataUpdate?.description,
       national: dataUpdate?.national,
-      file1:
-        dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[0]
-          ? dataUpdate.imageFiles[0]
-          : "",
-      file2:
-        dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[1]
-          ? dataUpdate.imageFiles[1]
-          : "",
-      file3:
-        dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[2]
-          ? dataUpdate.imageFiles[2]
-          : "",
-    });
+      file1: dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[0] ? dataUpdate.imageFiles[0] : null,
+      file2: dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[1] ? dataUpdate.imageFiles[1] : null,
+      file3: dataUpdate && dataUpdate.imageFiles && dataUpdate.imageFiles[2] ? dataUpdate.imageFiles[2] : null,
+    };
+    reset(defaultValuesForm);
   }, [dataUpdate]);
   const handleSetModelCar = async (brandCar) => {
     let res = await getAllModelcar(brandCar);
@@ -73,21 +65,21 @@ const ModalUpdateCar = (props) => {
     setPreViewImage2(null);
     setPreViewImage3(null);
     reset({
-      title: "",
-      car_brand: "",
-      car_model: "",
-      price: "",
-      status: "",
-      color: "",
-      publishing_year: "",
-      km_traveled: "",
-      gear: "",
-      andress: "",
-      description: "",
-      national: "",
-      file1: "",
-      file2: "",
-      file3: "",
+      title: '',
+      car_brand: '',
+      car_model: '',
+      price: '',
+      status: '',
+      color: '',
+      publishing_year: '',
+      km_traveled: '',
+      gear: '',
+      andress: '',
+      description: '',
+      national: '',
+      file1: '',
+      file2: '',
+      file3: '',
     });
   };
   const {
@@ -95,12 +87,40 @@ const ModalUpdateCar = (props) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({});
+  } = useForm();
+  const handleCloseImage = (fileReset) => {
+    reset({
+      fileReset: '',
+    });
+    switch (fileReset) {
+      case 'file1':
+        setPreViewImage1('');
+        break;
+      case 'file2':
+        setPreViewImage2('');
+        break;
+      case 'file3':
+        setPreViewImage3('');
+        break;
+      default:
+        break;
+    }
+  };
   const onSubmit = (data) => {
+    if (!preViewImage1) {
+      toast.error('Please choose image 1');
+      return;
+    }
+    if (!preViewImage2) {
+      toast.error('Please choose image 2');
+      return;
+    }
+    if (!preViewImage3) {
+      toast.error('Please choose image 3');
+      return;
+    }
     const curDate = new Date();
-    const timeUpdate = `${curDate.getDate()}/${
-      curDate.getMonth() + 1
-    }/${curDate.getFullYear()}`;
+    const timeUpdate = `${curDate.getDate()}/${curDate.getMonth() + 1}/${curDate.getFullYear()}`;
     let imageFiles = [];
     imageFiles.push(preViewImage1, preViewImage2, preViewImage3);
     const dataClone = _.cloneDeep(data);
@@ -111,6 +131,39 @@ const ModalUpdateCar = (props) => {
     dataClone.timeUpdate = timeUpdate;
     dataClone.imageFiles = imageFiles;
     fetUpdateCar(dataClone);
+  };
+  const handleError = () => {
+    if (errors.file1) {
+      toast.error('Please choose image 1');
+      return;
+    }
+    if (errors.file2) {
+      toast.error('Please choose image 2');
+      return;
+    }
+    if (errors.file3) {
+      toast.error('Please choose image 3');
+      return;
+    }
+  };
+  const onerror = () => {
+    if (
+      !(
+        errors.andress &&
+        errors.title &&
+        errors.car_brand &&
+        errors.car_model &&
+        errors.color &&
+        errors.description &&
+        errors.km_traveled &&
+        errors.gear &&
+        errors.price &&
+        errors.status &&
+        errors.publishing_year &&
+        errors.national
+      )
+    )
+      handleError();
   };
   const fetUpdateCar = async (dataClone) => {
     let res = await updateCar(
@@ -130,27 +183,24 @@ const ModalUpdateCar = (props) => {
       dataUpdate?.timePost,
       dataClone?.national,
       dataClone?.timeUpdate,
-      dataClone?.view
+      dataClone?.view,
     );
     if (res && res.status === 200) {
-      toast.success("Update success car ");
+      toast.success('Update success car ');
       handleClose();
       fetAllCar();
     }
   };
   const handleValid = (e) => {
     if (!errors.name) {
-      e.target.classList.add("is-valid");
+      e.target.classList.add('is-valid');
     } else {
-      e.target.classList.remove("is-valid");
+      e.target.classList.remove('is-valid');
     }
   };
   return (
     <div>
-      <div
-        className="modal show "
-        style={{ display: "block", position: "initial" }}
-      >
+      <div className="modal show " style={{ display: 'block', position: 'initial' }}>
         <Modal
           show={show}
           onHide={() => {
@@ -163,22 +213,18 @@ const ModalUpdateCar = (props) => {
             <Modal.Title>Confirm Update the car</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit, onerror)}>
               <div className="form-group  form-group-post col-md-6">
                 <label className="label">Title</label>
                 <input
                   type="text"
-                  {...register("title", { required: true, minLength: 6 })}
-                  className={`form-control input  ${
-                    errors.title ? "is-invalid" : ""
-                  } `}
+                  {...register('title', { required: true, minLength: 6 })}
+                  className={`form-control input  ${errors.title ? 'is-invalid' : ''} `}
                   onInput={(e) => {
                     handleValid(e);
                   }}
                 />
-                <span className="des-valid  ">
-                  {errors.title ? "Enter at least 6 characters" : ""}
-                </span>
+                <span className="des-valid  ">{errors.title ? 'Enter at least 6 characters' : ''}</span>
               </div>
               <div className="group-content">
                 <div className="form-group  form-group-post col-md-2">
@@ -186,26 +232,19 @@ const ModalUpdateCar = (props) => {
                   <select
                     disabled
                     onInput={(e) => {}}
-                    className={`form-control input ${
-                      errors.car_brand ? "is-invalid" : ""
-                    }`}
-                    {...register("car_brand", {
+                    className={`form-control input ${errors.car_brand ? 'is-invalid' : ''}`}
+                    {...register('car_brand', {
                       required: true,
                     })}
                   >
-                    <option value={dataUpdate && dataUpdate.car_brand}>
-                      {dataUpdate && dataUpdate.car_brand}
-                    </option>
+                    <option value={dataUpdate && dataUpdate.car_brand}>{dataUpdate && dataUpdate.car_brand}</option>
                   </select>
                 </div>
                 <div className="form-group  form-group-post col-md-2">
                   <label className="label">Car Model &#40;selected&#41;</label>
                   <select
-                    className={`form-control input ${
-                      errors.car_model ? "is-invalid" : ""
-                    }`}
-                    {...register("car_model", { required: true })}
-                    defaultValue={dataUpdate && dataUpdate.car_model}
+                    className={`form-control input ${errors.car_model ? 'is-invalid' : ''}`}
+                    {...register('car_model', { required: true })}
                   >
                     {listModelCar &&
                       listModelCar.length > 0 &&
@@ -218,10 +257,7 @@ const ModalUpdateCar = (props) => {
                 </div>
                 <div className="form-group form-group-post col-md-2 ">
                   <label className="label">Status</label>
-                  <select
-                    className="form-control input"
-                    {...register("status")}
-                  >
+                  <select className="form-control input" {...register('status')}>
                     <option value="Old">Old</option>
                     <option value="New">New</option>
                   </select>
@@ -232,11 +268,9 @@ const ModalUpdateCar = (props) => {
                 <div className="form-group form-group-post col-md-2 ">
                   <label className="label">Price</label>
                   <input
-                    type="text"
-                    className={`form-control input ${
-                      errors.price ? "is-invalid" : ""
-                    } `}
-                    {...register("price", { required: true, minLength: 1 })}
+                    type="number"
+                    className={`form-control input ${errors.price ? 'is-invalid' : ''} `}
+                    {...register('price', { required: true, minLength: 1 })}
                     onInput={(e) => {
                       handleValid(e);
                     }}
@@ -246,10 +280,8 @@ const ModalUpdateCar = (props) => {
                   <label className="label">Color </label>
                   <input
                     type="text"
-                    className={`form-control input  ${
-                      errors.color ? "is-invalid" : ""
-                    } `}
-                    {...register("color", { required: true, minLength: 1 })}
+                    className={`form-control input  ${errors.color ? 'is-invalid' : ''} `}
+                    {...register('color', { required: true, minLength: 1 })}
                     onInput={(e) => {
                       handleValid(e);
                     }}
@@ -258,11 +290,9 @@ const ModalUpdateCar = (props) => {
                 <div className="form-group form-group-post col-md-2 ">
                   <label className="label">Publishing year </label>
                   <input
-                    type="text"
-                    className={`form-control input  ${
-                      errors.publishing_year ? "is-invalid" : ""
-                    } `}
-                    {...register("publishing_year", {
+                    type="number"
+                    className={`form-control input  ${errors.publishing_year ? 'is-invalid' : ''} `}
+                    {...register('publishing_year', {
                       required: true,
                       minLength: 1,
                     })}
@@ -276,11 +306,9 @@ const ModalUpdateCar = (props) => {
                 <div className="form-group form-group-post col-md-2 ">
                   <label className="label">Km traveled </label>
                   <input
-                    type="text"
-                    className={`form-control input  ${
-                      errors.km_traveled ? "is-invalid" : ""
-                    } `}
-                    {...register("km_traveled", {
+                    type="number"
+                    className={`form-control input  ${errors.km_traveled ? 'is-invalid' : ''} `}
+                    {...register('km_traveled', {
                       required: true,
                       minLength: 1,
                     })}
@@ -293,10 +321,8 @@ const ModalUpdateCar = (props) => {
                   <label className="label">Which water car? </label>
                   <input
                     type="text"
-                    className={`form-control input  ${
-                      errors.national ? "is-invalid" : ""
-                    } `}
-                    {...register("national", { required: true, minLength: 1 })}
+                    className={`form-control input  ${errors.national ? 'is-invalid' : ''} `}
+                    {...register('national', { required: true, minLength: 1 })}
                     onInput={(e) => {
                       handleValid(e);
                     }}
@@ -305,7 +331,7 @@ const ModalUpdateCar = (props) => {
                 <div className="form-group form-group-post col-md-2 ">
                   <label className="label">Car gearbox</label>
 
-                  <select className="form-control input" {...register("gear")}>
+                  <select className="form-control input" {...register('gear')}>
                     <option value="Auto">Auto</option>
                     <option value="MT">MT</option>
                     <option value="CVT">CVT </option>
@@ -320,11 +346,9 @@ const ModalUpdateCar = (props) => {
                 <label className="label">Place of sale </label>
                 <input
                   type="text"
-                  className={`form-control input  ${
-                    errors.andress ? "is-invalid" : ""
-                  } `}
+                  className={`form-control input  ${errors.andress ? 'is-invalid' : ''} `}
                   placeholder="Andress"
-                  {...register("andress", { required: true, minLength: 1 })}
+                  {...register('andress', { required: true, minLength: 1 })}
                   onInput={(e) => {
                     handleValid(e);
                   }}
@@ -334,12 +358,10 @@ const ModalUpdateCar = (props) => {
               <div className="form-group form-group-post col-md-6 ">
                 <label className="label">Description </label>
                 <textarea
-                  style={{ resize: "none" }}
+                  style={{ resize: 'none' }}
                   placeholder="About you"
-                  className={`form-control textarea ${
-                    errors.description ? "is-invalid" : ""
-                  }`}
-                  {...register("description", {
+                  className={`form-control textarea ${errors.description ? 'is-invalid' : ''}`}
+                  {...register('description', {
                     required: true,
                     minLength: 10,
                   })}
@@ -347,17 +369,15 @@ const ModalUpdateCar = (props) => {
                     handleValid(e);
                   }}
                 />
-                <span className="des-valid  ">
-                  {errors.description ? "Enter at least 10 characters" : ""}
-                </span>
+                <span className="des-valid  ">{errors.description ? 'Enter at least 10 characters' : ''}</span>
               </div>
               <div className="group-upload">
                 <UploadImage htmlFor="file1" index={1} />
                 <input
-                  type={"file"}
+                  type={'file'}
                   id="file1"
                   hidden
-                  {...register("file1")}
+                  {...register('file1')}
                   onInput={(event) => {
                     let stringBase64;
                     let fileReader = new FileReader();
@@ -368,25 +388,33 @@ const ModalUpdateCar = (props) => {
                     };
                   }}
                 />
-                <div
-                  className={`col-md-6 img-preview ${
-                    errors.file1 ? "active" : ""
-                  }`}
-                >
+                <div className={`col-md-6 img-preview ${errors.file1 ? 'active' : ''}`}>
                   {preViewImage1 ? (
-                    <img src={preViewImage1} alt="" className="img-car" />
+                    <div className="img-car">
+                      <img src={preViewImage1} alt="" />
+                      <span
+                        className="close"
+                        onClick={() => {
+                          handleCloseImage('file1');
+                        }}
+                      >
+                        X
+                      </span>
+                    </div>
                   ) : (
-                    <span style={{ fontSize: "1.5rem" }}>Preview Image</span>
+                    <span className="text-prv" style={{ fontSize: '1.5rem' }}>
+                      Preview Image
+                    </span>
                   )}
                 </div>
               </div>
               <div className="group-upload">
                 <UploadImage htmlFor="file2" index={2} />
                 <input
-                  type={"file"}
+                  type={'file'}
                   id="file2"
                   hidden
-                  {...register("file2")}
+                  {...register('file2')}
                   onInput={(event) => {
                     let stringBase64;
                     let fileReader = new FileReader();
@@ -397,25 +425,33 @@ const ModalUpdateCar = (props) => {
                     };
                   }}
                 />
-                <div
-                  className={`col-md-6  img-preview ${
-                    errors.file2 ? "active" : ""
-                  }`}
-                >
+                <div className={`col-md-6  img-preview ${errors.file2 ? 'active' : ''}`}>
                   {preViewImage2 ? (
-                    <img src={preViewImage2} alt="" className="img-car" />
+                    <div className="img-car">
+                      <img src={preViewImage2} alt="" />
+                      <span
+                        className="close"
+                        onClick={() => {
+                          handleCloseImage('file2');
+                        }}
+                      >
+                        X
+                      </span>
+                    </div>
                   ) : (
-                    <span style={{ fontSize: "1.5rem" }}>Preview Image</span>
+                    <span className="text-prv" style={{ fontSize: '1.5rem' }}>
+                      Preview Image
+                    </span>
                   )}
                 </div>
               </div>
               <div className="group-upload">
                 <UploadImage htmlFor="file3" index={3} />
                 <input
-                  type={"file"}
+                  type={'file'}
                   id="file3"
                   hidden
-                  {...register("file3")}
+                  {...register('file3')}
                   onInput={(event) => {
                     let stringBase64;
                     let fileReader = new FileReader();
@@ -426,15 +462,23 @@ const ModalUpdateCar = (props) => {
                     };
                   }}
                 />
-                <div
-                  className={`col-md-6 img-preview ${
-                    errors.file3 ? "active" : ""
-                  }`}
-                >
+                <div className={`col-md-6 img-preview ${errors.file3 ? 'active' : ''}`}>
                   {preViewImage3 ? (
-                    <img src={preViewImage3} alt="" className="img-car" />
+                    <div className="img-car">
+                      <img src={preViewImage3} alt="" />
+                      <span
+                        className="close"
+                        onClick={() => {
+                          handleCloseImage('file3');
+                        }}
+                      >
+                        X
+                      </span>
+                    </div>
                   ) : (
-                    <span style={{ fontSize: "1.5rem" }}>Preview Image</span>
+                    <span className="text-prv" style={{ fontSize: '1.5rem' }}>
+                      Preview Image
+                    </span>
                   )}
                 </div>
               </div>
@@ -458,4 +502,5 @@ const ModalUpdateCar = (props) => {
     </div>
   );
 };
+
 export default ModalUpdateCar;

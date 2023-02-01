@@ -25,9 +25,9 @@ const ModalDeleteCar = (props) => {
           </Modal.Header>
           <Modal.Body>
             <div>Delete car sale</div>
-            <div>name is :{dataDelete.name}</div>
+            <div>name is :{dataDelete.title}</div>
             <div>Price: {dataDelete.price}</div>
-            <div>Style: {dataDelete.qstyle}</div>
+            <div>Style: {dataDelete.car_model}</div>
             <div>Time Post : {dataDelete.timePost}</div>
           </Modal.Body>
           <Modal.Footer>

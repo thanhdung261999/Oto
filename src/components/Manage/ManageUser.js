@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllUser } from "../../services/ApiServices";
-import ModalDeleteUser from "./Modal/ModelDeleteUser";
-import "./ManageUser.scss";
-import ModalUpdateUser from "./Modal/ModelUpdateUser";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAllUser } from '../../services/ApiServices';
+import ModalDeleteUser from './Modal/ModelDeleteUser';
+import './ManageUser.scss';
+import ModalUpdateUser from './Modal/ModelUpdateUser';
+import nProgress from 'nprogress';
 const ManageUser = (props) => {
   const [listCar, setListCar] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [dataDelete, setDataDelete] = useState({});
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
+  useEffect(() => {
+    nProgress.start();
+    setTimeout(() => {
+      nProgress.done();
+    }, 1000);
+  }, []);
   const navigate = useNavigate();
   useEffect(() => {
     fetAllUser();
@@ -52,10 +59,10 @@ const ManageUser = (props) => {
                   <td>{user.email}</td>
                   <td>{user.username}</td>
                   <td>{user.role}</td>
-                  <td>
+                  <td className="list-action">
                     <button
                       className="btn btn-warning fs"
-                      style={{ margin: "0 10px 0 5px" }}
+                      style={{ margin: '0 10px 0 5px' }}
                       onClick={() => {
                         handleShowModaleUpdate(user);
                       }}

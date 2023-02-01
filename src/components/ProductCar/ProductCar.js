@@ -19,7 +19,13 @@ const ProductCar = (props) => {
   };
   return (
     <>
-      <Col className="item-product" sm={props.sm} md={props.md} lg={props.lg}>
+      <Col
+        className="item-product"
+        xs={props.xs}
+        sm={props.sm}
+        md={props.md}
+        lg={props.lg}
+      >
         <div className="product">
           <div className="brand">Bussan</div>
           <div
@@ -44,12 +50,22 @@ const ProductCar = (props) => {
             </div>
             <div className="prd-price">
               <AiFillDollarCircle className="icon-dola" />
-              <span>{data && data.price}</span>
+              <span>
+                {" "}
+                {data &&
+                  data.price &&
+                  new Intl.NumberFormat().format(data.price) + " $"}
+              </span>
             </div>
             <ul className="prd-description">
               <li>
                 <AiOutlineCar className="icon" />
-                <span> {data && data.km_traveled}km</span>
+                <span>
+                  {" "}
+                  {data &&
+                    data.km_traveled &&
+                    new Intl.NumberFormat().format(data.km_traveled) + " km"}
+                </span>
               </li>
 
               <li>
@@ -63,14 +79,15 @@ const ProductCar = (props) => {
                 )}
               </li>
             </ul>
-            <button
+            <a
+              href="tel:+84999999999"
               className=" btn-contact"
               onClick={() => {
                 setIsShowBtn((pre) => !pre);
               }}
             >
               {isShowBtn ? "0999 999 999" : "Contact"}
-            </button>
+            </a>
           </div>
         </div>
       </Col>

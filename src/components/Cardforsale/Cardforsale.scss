@@ -1,7 +1,10 @@
 .card-for-sale-container {
   padding: 30px 10px 20px 15px;
   margin-top: 30px;
-
+  &.container-mb-tb {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .content {
     padding-left: 5px;
     display: flex;
@@ -15,12 +18,20 @@
         font-weight: 600;
         margin-bottom: 30px;
       }
+      @media (max-width: 1023px) {
+        .title {
+          text-align: center;
+        }
+      }
       .group-selected {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
         padding-bottom: 30px;
         border-bottom: 1px dashed #999;
         font-size: 1.6rem;
+
         .select {
           height: 38px;
           border-radius: 3px;

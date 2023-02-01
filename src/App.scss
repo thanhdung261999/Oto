@@ -1,6 +1,6 @@
 @import-normalize;
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-@import "~react-pro-sidebar/dist/scss/styles.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import '~react-pro-sidebar/dist/scss/styles.scss';
 :root {
   --primary-color: #008848;
 }
@@ -15,7 +15,7 @@ html {
   scroll-behavior: smooth;
   font-size: 62.5%;
   line-height: 1.6rem;
-  font-family: " Roboto ", sans-serif;
+  font-family: ' Roboto ', sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 body {
@@ -33,20 +33,50 @@ body {
     .img-preview {
       padding: 20px;
       border: 1px dashed #ccc;
-      display: flex;
       height: 300px;
-      justify-content: center;
-      align-items: center;
       border-radius: 5px;
       color: #ccc;
       width: 50%;
-
       & .error {
         border: 1px dashed red;
       }
-      img {
-        max-width: 100%;
-        max-height: 100%;
+      .text-prv {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+      .img-car {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        img {
+          object-fit: cover;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        .close {
+          position: absolute;
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          top: 0;
+          right: 0;
+          width: 20px;
+          height: 20px;
+          background-color: #000;
+          border-radius: 50%;
+          cursor: pointer;
+          color: #fff;
+          font-size: 1.6rem;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
       }
     }
   }
@@ -73,4 +103,32 @@ body {
 }
 .Toastify__toast-container--top-right {
   top: 3em !important;
+}
+.loading-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  color: #61dafb;
+  background-color: #222;
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    .icon-react {
+      animation: spinner 0.7s linear 0s infinite;
+      font-size: 12rem;
+    }
+  }
+}
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

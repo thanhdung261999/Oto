@@ -1,23 +1,15 @@
-import axios from "../utils/axiosCiustome";
-export const getEightCar = () => {
-  return axios.get("/cars?_start=0&_end=8");
+import axios from '../utils/axiosCiustome';
+export const getCarWithNumber = (number) => {
+  return axios.get(`/cars?_start=0&_end=${number}`);
 };
 export const getAllCar = () => {
-  return axios.get("/cars");
+  return axios.get('/cars');
 };
 export const getDetailsCar = (id) => {
   return axios.get(`/cars/${id}`);
 };
-export const getAllCarWithBrandModelSortByPrice = (
-  brand,
-  arrange,
-  model = ""
-) => {
-  return axios.get(
-    `/cars?car_brand=${brand}${
-      model ? "&car_model=" + model : ""
-    }&_sort=price&_order=${arrange}`
-  );
+export const getAllCarWithBrandModelSortByPrice = (brand, arrange, model = '') => {
+  return axios.get(`/cars?car_brand=${brand}${model ? '&car_model=' + model : ''}&_sort=price&_order=${arrange}`);
 };
 export const getAllCarWithBrandModel = (brand, model) => {
   return axios.get(`/cars?car_brand=${brand}&car_model=${model}`);
@@ -26,13 +18,13 @@ export const getAllCarWithBrand = (brand) => {
   return axios.get(`/cars?car_brand=${brand}`);
 };
 export const getAllBrandCar = () => {
-  return axios.get("/brandCars");
+  return axios.get('/brandCars');
 };
 export const getAllModelcar = (nameBrand) => {
   return axios.get(`/brandCars?name=${nameBrand}`);
 };
 export const postCar = (data) => {
-  return axios.post("/cars", {
+  return axios.post('/cars', {
     title: data?.title,
     car_brand: data?.car_brand,
     car_model: data?.car_model,
@@ -47,8 +39,8 @@ export const postCar = (data) => {
     imageFiles: data?.imageFiles,
     timePost: data?.timePost,
     national: data?.national,
-    timeUpdate: "",
-    view: data?.view,
+    timeUpdate: '',
+    view: 0,
   });
 };
 export const deleteCar = (id) => {
@@ -71,7 +63,7 @@ export const updateCar = (
   timePost,
   national,
   timeUpdate,
-  view
+  view,
 ) => {
   return axios.put(`/cars/${id}`, {
     title,
@@ -96,8 +88,8 @@ export const patchViewCar = (id, view) => {
   return axios.patch(`/cars/${id}`, { view });
 };
 export const postUser = (email, password, username) => {
-  const role = "User";
-  return axios.post("/users", {
+  const role = 'User';
+  return axios.post('/users', {
     email,
     password,
     username,

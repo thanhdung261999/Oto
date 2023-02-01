@@ -1,16 +1,33 @@
-import { Route, Routes } from "react-router-dom";
-import App from "./App";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import Cardforsale from "./components/Cardforsale/Cardforsale";
-import DetailsCar from "./components/DetailsCar/DetailsCar";
-import Home from "./components/Home/Home";
-import Manage from "./components/Manage/Manage";
-import ManageCar from "./components/Manage/ManageCar";
-import ManageUser from "./components/Manage/ManageUser";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { FaReact } from 'react-icons/fa';
+import { Route, Routes } from 'react-router-dom';
+import App from './App';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Cardforsale from './components/Cardforsale/Cardforsale';
+import DetailsCar from './components/DetailsCar/DetailsCar';
+import Home from './components/Home/Home';
+import Manage from './components/Manage/Manage';
+import ManageCar from './components/Manage/ManageCar';
+import ManageUser from './components/Manage/ManageUser';
 function Layout(props) {
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, []);
   return (
     <>
+      {isLoading && (
+        <div className="loading-wrapper">
+          <span>
+            <FaReact className="icon-react" />
+          </span>
+        </div>
+      )}
       <Routes>
         <Route element={<App />} path="/">
           <Route index element={<Home />} />
@@ -18,7 +35,6 @@ function Layout(props) {
             <Route index element={<Cardforsale />} />
             <Route path=":id" element={<DetailsCar />} />
           </Route>
-
           <Route path="/manage" element={<Manage />}>
             <Route index element={<ManageCar />} />
             <Route path="users" element={<ManageUser />} />

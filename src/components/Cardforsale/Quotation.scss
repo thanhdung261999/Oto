@@ -29,8 +29,9 @@
   .checkbox {
     font-size: 1.6rem;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     div {
       display: flex;
       label {

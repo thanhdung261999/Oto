@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllCar } from "../../services/ApiServices";
-import ModalDeleteCar from "./Modal/ModalDeleteCar";
-import ModalUpdateCar from "./Modal/ModalUpdateCar";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getAllCar } from '../../services/ApiServices';
+import ModalDeleteCar from './Modal/ModalDeleteCar';
+import ModalUpdateCar from './Modal/ModalUpdateCar';
 const EditCar = (props) => {
   const [listCar, setListCar] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
@@ -31,13 +31,12 @@ const EditCar = (props) => {
   return (
     <div className="edit-container">
       <h4 className="title-edit">Manage Car</h4>
-      <table className="table table-hover table-bordered mt-3">
+      <table className="table table-hover table-bordered mt-3" style={{ overflowX: 'scroll' }}>
         <thead>
           <tr>
             <th scope="col">No</th>
             <th scope="col">Title</th>
             <th scope="col">Price</th>
-            <th scope="col">Model</th>
             <th scope="col">Gear</th>
             <th scope="col">Post time</th>
             <th scope="col">Actions</th>
@@ -51,15 +50,13 @@ const EditCar = (props) => {
                 <tr key={`table-car-${index}`}>
                   <th scope="row">{index + 1}</th>
                   <td>{car.title}</td>
-                  <td>{car.price}</td>
-                  <td>{car.car_model}</td>
+                  <td>{new Intl.NumberFormat().format(car.price)} $</td>
                   <td>{car.gear}</td>
                   <td>{car.timePost}</td>
-
-                  <td>
+                  <td className="td-list-action">
                     <button
                       className="btn btn-secondary fs"
-                      style={{ margin: "0 5px 0 5px " }}
+                      style={{ margin: '0 5px 0 5px ' }}
                       onClick={() => {
                         navigate(`/card-for-sale/:${car.id}`);
                       }}
@@ -68,7 +65,7 @@ const EditCar = (props) => {
                     </button>
                     <button
                       className="btn btn-warning fs"
-                      style={{ margin: "0 10px 0 5px" }}
+                      style={{ margin: '0 10px 0 5px' }}
                       onClick={() => {
                         handleShowModaleUpdate(car);
                       }}

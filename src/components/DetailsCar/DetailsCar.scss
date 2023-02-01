@@ -7,6 +7,10 @@
     margin-bottom: 50px;
     .datails-des {
       padding-right: 20px;
+      &.pd-mb-tl {
+        padding-right: 0;
+        padding-left: 10px;
+      }
       .content-main {
         display: flex;
         flex-direction: column;
@@ -16,22 +20,23 @@
           color: #222222;
           display: flex;
           align-items: center;
+          flex-wrap: wrap;
           justify-content: space-between;
           .title-car {
             font-size: 2rem;
             display: flex;
-            align-items: center;
+            margin-bottom: 10px;
             .icon-car {
+              flex-shrink: 0;
               color: #999;
               position: relative;
-              top: 1px;
+              top: 6px;
             }
             span {
               margin-left: 8px;
             }
           }
           .time-view {
-            margin-top: 10px;
             display: flex;
             align-items: center;
             .time {
@@ -170,5 +175,15 @@
 .carousel {
   .thumbs-wrapper {
     margin: 20px 20px 0 20px !important;
+  }
+}
+@media (max-width: 380px) {
+  .thumbs-wrapper {
+    &.axis-vertical {
+      display: none;
+    }
+  }
+  .car-details {
+    margin-top: 20px;
   }
 }

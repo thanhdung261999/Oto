@@ -1,12 +1,38 @@
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import EditCar from "./EditCar";
-import PostCar from "./PostCar";
+import nProgress from 'nprogress';
+import { useEffect } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import EditCar from './EditCar';
+import PostCar from './PostCar';
 const ManageCar = (props) => {
+  useEffect(() => {
+    nProgress.start();
+    setTimeout(() => {
+      nProgress.done();
+    }, 1000);
+  }, []);
   return (
     <Tabs>
       <TabList>
-        <Tab>Manage car</Tab>
-        <Tab>Post Car</Tab>
+        <Tab
+          onClick={() => {
+            nProgress.start();
+            setTimeout(() => {
+              nProgress.done();
+            }, 1000);
+          }}
+        >
+          Manage car
+        </Tab>
+        <Tab
+          onClick={() => {
+            nProgress.start();
+            setTimeout(() => {
+              nProgress.done();
+            }, 1000);
+          }}
+        >
+          Post Car
+        </Tab>
       </TabList>
       <TabPanel>
         <EditCar />

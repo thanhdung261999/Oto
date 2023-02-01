@@ -1,33 +1,46 @@
-import { Outlet } from "react-router-dom";
-import Header from "./components/Header/Header";
-import "./App.scss";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import Footer from "./components/Footer/Footer";
-import { BsFillArrowUpSquareFill } from "react-icons/bs";
-import { useState } from "react";
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header/Header';
+import './App.scss';
+// import PerfectScrollbar from "react-perfect-scrollbar";
+import Footer from './components/Footer/Footer';
+import { BsFillArrowUpSquareFill } from 'react-icons/bs';
+import { FaReact } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 function App(props) {
-  const scrollToTop = () => {
-    document.body.scrollTo(0, 0);
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, []);
   return (
     <>
-      <div className="app-container">
-        <header>
-          <Header />
-        </header>
-        <div className="app-content">
-          {/* <PerfectScrollbar> */}
-          <Outlet />
-          <div className="app-footer">
-            <Footer />
-          </div>
-          {/* </PerfectScrollbar> */}
+      {isLoading && (
+        <div className="loading-wrapper">
+          <span>
+            <FaReact className="icon-react" />
+          </span>
         </div>
-      </div>
+      )}
+      {isLoading === false && (
+        <div className="app-container">
+          <header>
+            <Header setIsLoading={setIsLoading} />
+          </header>
+          <div className="app-content">
+            {/* <PerfectScrollbar> */}
+            <Outlet />
+            <div className="app-footer">
+              <Footer />
+            </div>
+            {/* </PerfectScrollbar> */}
+          </div>
+        </div>
+      )}
       <div className="up">
-        <span onClick={scrollToTop}>
+        <a href="#">
           <BsFillArrowUpSquareFill className="icon" />
-        </span>
+        </a>
       </div>
     </>
   );

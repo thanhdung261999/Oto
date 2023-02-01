@@ -18,6 +18,7 @@
     "react-icons": "^4.7.1",
     "react-perfect-scrollbar": "^1.5.8",
     "react-pro-sidebar": "0.7.1",
+    "react-responsive": "^9.0.2",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "6.6.1",
     "react-scripts": "5.0.1",
@@ -54,7 +55,6 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.17.1",
-    "json-server-auth": "^2.1.0"
+    "json-server": "^0.17.1"
   }
 }

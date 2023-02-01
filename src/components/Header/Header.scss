@@ -8,6 +8,12 @@
   background: linear-gradient(to right, rgb(104, 40, 250), rgb(255, 186, 164));
   height: var(--header-height);
   font-size: 1.8rem;
+  // mobile an tablet
+  .container-mb-tb {
+    padding-left: 12px;
+    width: 100%;
+    background: linear-gradient(to right, rgb(104, 40, 250), rgb(255, 186, 164));
+  }
 }
 .navbar-nav {
   .btn-login {
@@ -33,6 +39,8 @@
 
   .nav-link {
     color: #fff !important;
+    display: flex;
+    align-items: center;
     font-weight: 500;
     margin-right: 12px;
     &.active {
@@ -43,8 +51,6 @@
     }
   }
 
-  // --cta-hover-color: #6828fa;
-
   .header-content {
     display: flex !important;
     justify-content: space-between !important;
@@ -53,4 +59,13 @@
 
 .st {
   font-size: 1.5rem !important;
+}
+.drop-list {
+  .dropdown-menu {
+    position: unset;
+    position: absolute !important;
+    width: 100vw !important;
+    left: -10px !important;
+    background: #fff6f6;
+  }
 }
