@@ -115,3 +115,7 @@ export const updateUser = (id, email, username, role) => {
     role,
   });
 };
+
+export const isEmailRegister = (email) => {
+  return axios.get(`users?email=${email}`);
+};

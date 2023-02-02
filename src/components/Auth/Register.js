@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import './Register.scss';
 import { useForm } from 'react-hook-form';
-import { postUser } from '../../services/ApiServices';
+import { isEmailRegister, postUser } from '../../services/ApiServices';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';
 import nProgress from 'nprogress';
+import _ from 'lodash';
 const Register = (props) => {
   const {
     register,
@@ -15,6 +16,7 @@ const Register = (props) => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [isCheckEmail, setIsCheckEmail] = useState(false);
   useEffect(() => {
     nProgress.start();
     setTimeout(() => {
@@ -26,15 +28,25 @@ const Register = (props) => {
     query: '(max-width : 1023px)',
   });
   const onSubmit = (data) => {
-    fetPostUser(data);
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000);
+    isEmail(data);
+  };
+  const isEmail = async (data) => {
+    let res = await isEmailRegister(data?.email);
+    if (res && res.status === 200) {
+      if (_.isEmpty(res.data)) {
+        return fetPostUser(data);
+      }
+    }
+    setIsCheckEmail(true);
+    toast.error('Email already exists');
   };
   const fetPostUser = async (data) => {
     let res = await postUser(data?.email, data?.password, data?.username);
     if (res && res.status === 201) {
       toast.success('create account success');
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
     }
   };
   return (
@@ -54,9 +66,16 @@ const Register = (props) => {
               <input
                 type="email"
                 {...register('email', { required: true })}
-                className={errors.email ? 'form-control is-invalid' : 'form-control'}
+                className={errors.email || isCheckEmail ? 'form-control is-invalid' : 'form-control'}
+                onInput={() => {
+                  setIsCheckEmail(false);
+                }}
               />
-              {errors.email ? <span className="des">This field must be email</span> : <span className="des"></span>}
+              {errors.email ? (
+                <span className="des">This field must be email</span>
+              ) : (
+                <span className="des">{isCheckEmail && 'Email already exists'}</span>
+              )}
             </div>
             <div className="form-group">
               <label>Password (*) </label>
