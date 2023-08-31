@@ -12,29 +12,43 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import * as firebase from 'firebase/app';
 NProgress.configure({
   showSpinner: false,
   trickleSpeed: 100,
 });
+const firebaseConfig = {
+  apiKey: 'AIzaSyByNtiMQ5kQ_LU7QIbpJRwsLcSmkpDSXSs',
+  authDomain: 'bussan-7db9f.firebaseapp.com',
+  projectId: 'bussan-7db9f',
+  storageBucket: 'bussan-7db9f.appspot.com',
+  messagingSenderId: '109471247707',
+  appId: '1:109471247707:web:2a4191d3742cef05c9fe7e',
+  measurementId: 'G-TQVGHLTV57',
+};
+firebase.initializeApp(firebaseConfig);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Layout />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <ToastContainer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Layout />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </Router>
+    </Provider>
   </React.StrictMode>,
 );
 

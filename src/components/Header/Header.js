@@ -8,35 +8,41 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
 import MediaQuery from 'react-responsive';
+import { store } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../redux/action/action';
 const Header = (props) => {
   const navigate = useNavigate();
-  const isAuth = JSON.parse(window.localStorage.getItem('USER'))?.isAuth;
-  const role = JSON.parse(window.localStorage.getItem('USER'))?.role;
+  const isAuth = store.getState().isAuth;
   const [isAuthen, setIsAuthen] = useState(isAuth);
-  const [isAdmin, setIsAdmin] = useState(role);
+  const dispatch = useDispatch();
   const isMobileAndTablet = useMediaQuery({
     query: '(max-width: 1023px)',
   });
   const handleLogout = () => {
     props.setIsLoading(true);
     setTimeout(() => {
-      localStorage.setItem(
-        'USER',
-        JSON.stringify({
-          email: '',
-          isAuth: false,
-          role: '',
-          username: '',
-        }),
-      );
+      let data = {
+        email: '',
+        isAuth: false,
+        role: '',
+        username: '',
+      };
+      dispatch(logoutUser(data));
     }, 2000);
     setTimeout(() => {
       props.setIsLoading(false);
     }, 2000);
-    setIsAdmin('');
     setIsAuthen(false);
     navigate('/');
     toast.success('Success logout');
+  };
+  const toggleNavbar = () => {
+    let buttonShow = document.querySelector('.navbar-collapse.collapse.show');
+    if (buttonShow !== null) {
+      document.querySelector('.navbar-collapse.collapse').classList.remove('show');
+    }
+    console.log('ádsa');
   };
   return (
     <>
@@ -45,18 +51,16 @@ const Header = (props) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto header-content">
-              <NavLink to="/" className="nav-link">
+              <NavLink to="/" className="nav-link" onClick={toggleNavbar}>
                 Home
               </NavLink>
-              <NavLink to="/card-for-sale" className="nav-link">
+
+              <NavLink to="/card-for-sale" className="nav-link" onClick={toggleNavbar}>
                 Car For Sale
               </NavLink>
-
-              {isAuth && isAdmin === 'Admin' && (
-                <NavLink to="/manage" className="nav-link">
-                  Manage
-                </NavLink>
-              )}
+              <NavLink to="/manage" className="nav-link" onClick={toggleNavbar}>
+                Manage
+              </NavLink>
               <MediaQuery maxWidth={1023}>
                 {isAuthen ? (
                   <>

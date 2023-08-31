@@ -77,6 +77,7 @@ const PostCar = (props) => {
     dataClone.price = _.toNumber(dataClone.price);
     dataClone.timePost = timePost;
     dataClone.imageFiles = imageFiles;
+    handleDataFetch(dataClone);
     const res = await postCar(dataClone);
     if (res && res.status === 201) {
       reset({
@@ -105,6 +106,17 @@ const PostCar = (props) => {
         window.location.href = '/manage';
       }, 1000);
     }
+  };
+  const handleDataFetch = (data) => {
+    data.title.trim();
+    data.price.trim();
+    data.publishing_year.trim();
+    data.color.trim();
+    data.km_traveled.trim();
+    data.andress.trim();
+    data.description.trim();
+    data.national.trim();
+    data.description.trim();
   };
   const handleCloseImage = (fileReset) => {
     reset({

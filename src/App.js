@@ -3,9 +3,9 @@ import Header from './components/Header/Header';
 import './App.scss';
 // import PerfectScrollbar from "react-perfect-scrollbar";
 import Footer from './components/Footer/Footer';
-import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 import { FaReact } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import ScrollTop from './components/ScrollTop/ScrollTop';
 function App(props) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -37,11 +37,7 @@ function App(props) {
           </div>
         </div>
       )}
-      <div className="up">
-        <a href="#">
-          <BsFillArrowUpSquareFill className="icon" />
-        </a>
-      </div>
+      <ScrollTop />
     </>
   );
 }

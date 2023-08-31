@@ -69,14 +69,16 @@ const ManageUser = (props) => {
                     >
                       Update
                     </button>
-                    <button
-                      className="btn btn-danger fs"
-                      onClick={() => {
-                        handleShowModaleDelete(user);
-                      }}
-                    >
-                      Delete
-                    </button>
+                    {user.email !== 'trinhquy55555@gmail.com' && (
+                      <button
+                        className="btn btn-danger fs"
+                        onClick={() => {
+                          handleShowModaleDelete(user);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </td>
                 </tr>
               );

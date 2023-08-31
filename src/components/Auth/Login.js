@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './Login.scss';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useForm } from 'react-hook-form';
 import { getUser } from '../../services/ApiServices';
@@ -9,10 +8,14 @@ import _ from 'lodash';
 import nProgress from 'nprogress';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/action/action';
+import './Login.scss';
 const Login = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisable] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isTabletAndMobile = useMediaQuery({
     query: '(max-width : 1023px)',
   });
@@ -29,7 +32,7 @@ const Login = (props) => {
   } = useForm();
   const handleLogin = async (data) => {
     setIsLoading(true);
-    const res = await getUser(data?.email, data?.password);
+    const res = await getUser(data?.email?.trim(), data?.password);
     if (res && res.status === 200) {
       if (_.isEmpty(res.data)) {
         setTimeout(() => {
@@ -39,19 +42,23 @@ const Login = (props) => {
           return;
         }, 3000);
       } else {
-        toast.success('Login success');
+        setTimeout(() => {
+          toast.success('Login success');
+          setIsLoading(false);
+          setDisable(true);
+          return;
+        }, 3000);
         let dataUser = res?.data[0];
-        localStorage.setItem(
-          'USER',
-          JSON.stringify({
-            email: dataUser?.email,
-            role: dataUser?.role,
-            username: dataUser?.username,
-            isAuth: true,
-          }),
-        );
+        let data = {
+          email: dataUser?.email,
+          role: dataUser?.role,
+          username: dataUser?.username,
+          isAuth: true,
+        };
+        dispatch(loginUser(data));
         setTimeout(() => {
           navigate('/');
+          
         }, 2000);
       }
     } else {

@@ -88,6 +88,8 @@ export const patchViewCar = (id, view) => {
   return axios.patch(`/cars/${id}`, { view });
 };
 export const postUser = (email, password, username) => {
+  const date = new Date();
+  console.log(date);
   const role = 'User';
   return axios.post('/users', {
     email,

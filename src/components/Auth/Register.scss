@@ -80,11 +80,29 @@
         border: none;
         border-radius: 5px;
         color: white;
-        background: linear-gradient(
-          to right,
-          rgb(104, 40, 250),
-          rgb(255, 186, 164)
-        );
+        background: linear-gradient(to right, rgb(104, 40, 250), rgb(255, 186, 164));
+        &:disabled {
+          background-color: #c7c1c1;
+          color: #555;
+          cursor: no-drop;
+        }
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+      .loading-icon {
+        margin-right: 15px;
+        animation: spin 1s linear infinite;
+        position: relative;
+        top: -2px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
       .back {
         cursor: pointer;

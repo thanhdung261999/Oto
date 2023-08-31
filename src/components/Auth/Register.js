@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';
 import nProgress from 'nprogress';
 import _ from 'lodash';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 const Register = (props) => {
   const {
     register,
@@ -17,6 +18,10 @@ const Register = (props) => {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [isCheckEmail, setIsCheckEmail] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [disabled, setDisable] = useState(false);
+
+  const [otp, setOtp] = useState('');
   useEffect(() => {
     nProgress.start();
     setTimeout(() => {
@@ -31,20 +36,36 @@ const Register = (props) => {
     isEmail(data);
   };
   const isEmail = async (data) => {
-    let res = await isEmailRegister(data?.email);
-    if (res && res.status === 200) {
-      if (_.isEmpty(res.data)) {
-        return fetPostUser(data);
+    let email = data?.email?.trim();
+    if (email) {
+      let res = await isEmailRegister(email);
+      if (res && res.status === 200) {
+        setIsLoading(true);
+        setDisable(true);
+        if (otp !== '9999') {
+          setTimeout(() => {
+            toast.error('Error user authorization code');
+            setIsLoading(false);
+            setDisable(false);
+          }, 2000);
+          return;
+        } else if (_.isEmpty(res.data)) {
+          return fetPostUser(data);
+        }
       }
+      setIsCheckEmail(true);
+      toast.error('Email already exists');
     }
-    setIsCheckEmail(true);
-    toast.error('Email already exists');
   };
   const fetPostUser = async (data) => {
-    let res = await postUser(data?.email, data?.password, data?.username);
+    let res = await postUser(data?.email, data?.password, data?.username?.trim());
     if (res && res.status === 201) {
-      toast.success('create account success');
       setTimeout(() => {
+        setIsLoading(false);
+        setDisable(false);
+      }, 3000);
+      setTimeout(() => {
+        toast.success('create account success');
         navigate('/login');
       }, 1000);
     }
@@ -114,8 +135,23 @@ const Register = (props) => {
                 )}
               </div>
             </div>
+            <div className="form-group">
+              <label>User authorization code</label>
+              <input
+                type="text"
+                className="form-control"
+                value={otp}
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                }}
+              />
+              <label style={{ color: 'blue' }}>
+                Contact: <a href="tel:+84799448884">+84 799448884 </a>to get the code
+              </label>
+            </div>
             <div>
-              <button type="submit" className="btn-register">
+              <button type="submit" className="btn-register" disabled={disabled}>
+                {isLoading === true && <AiOutlineLoading3Quarters className="loading-icon" />}
                 Register
               </button>
             </div>

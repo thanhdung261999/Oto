@@ -8,17 +8,25 @@ import Home from './components/Home/Home';
 import Manage from './components/Manage/Manage';
 import ManageCar from './components/Manage/ManageCar';
 import ManageUser from './components/Manage/ManageUser';
+import { PrivateRoute } from './components/PrivareRoute/PrivareRoute';
 function Layout(props) {
   return (
     <>
-      <Routes>
+      <Routes>ư
         <Route element={<App />} path="/">
           <Route index element={<Home />} />
           <Route path="/card-for-sale">
             <Route index element={<Cardforsale />} />
             <Route path=":id" element={<DetailsCar />} />
           </Route>
-          <Route path="/manage" element={<Manage />}>
+          <Route
+            path="/manage"
+            element={
+              <PrivateRoute>
+                <Manage />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<ManageCar />} />
             <Route path="users" element={<ManageUser />} />
           </Route>
